@@ -6,7 +6,7 @@ Küçük, bağımlılıksız, yerel macOS uygulamaları. Hepsi Swift ile yazıl�
 |---|---|
 | [**Alt-Tab**](alt-tab/README.md) | ⌥Tab ile canlı pencere önizlemeli pencere değiştirici (menü çubuğu uygulaması) |
 | [**Mac-Clear**](mac-clear/README.md) | Disk temizleyici ve alan analizcisi |
-| **Tabula** | Finder'da sağ tık → Yeni Dosya (txt, md, json, csv, html, py, sh); türler `tabula/Extension/FinderSync.swift` içindeki listede |
+| [**Tabula**](tabula/README.md) | Finder'da sağ tık → Yeni Dosya (txt, md, json, csv, html, py, sh) |
 
 ## Gereksinimler
 
@@ -53,6 +53,14 @@ Disk temizleyici ve alan analizcisi. Sistem çöpü, büyük dosyalar, kopyalar,
 
 ![Mac-Clear](mac-clear/docs/screenshot.png)
 
+### [Tabula](tabula/README.md)
+
+<img src="tabula/docs/icon.png" width="64" align="left">
+
+Finder'da klasörün boş yerine sağ tıklayınca **Yeni Dosya** menüsü açar (txt, md, json, csv, html, py, sh). Finder eklentisi olarak çalışır. → [Ayrıntılar](tabula/README.md)
+
+<br clear="left">
+
 ## Depo yapısı
 
 ```
@@ -64,11 +72,18 @@ mac-apps/
 │   ├── Resources/        AppIcon.icns
 │   ├── tools/            make_icon.swift
 │   └── docs/             ekran görüntüleri
-└── mac-clear/
-    ├── README.md  Info.plist  Package.swift
-    ├── Sources/MacClear/
-    ├── Resources/
-    └── docs/             ekran görüntüsü
+├── mac-clear/
+│   ├── README.md  Info.plist  Package.swift
+│   ├── Sources/MacClear/
+│   ├── Resources/
+│   └── docs/             ekran görüntüsü
+└── tabula/
+    ├── README.md  Info.plist  Package.swift  post-build.sh
+    ├── Sources/Tabula/   ana uygulama (eklentiyi etkinleştirir)
+    ├── Extension/        Finder Sync eklentisi
+    ├── Resources/        AppIcon.icns
+    ├── tools/            make_icon.swift
+    └── docs/             ikon
 ```
 
 **Yeni uygulama eklemek için:**
