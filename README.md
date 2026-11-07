@@ -6,6 +6,7 @@ Küçük, bağımlılıksız, yerel macOS uygulamaları. Hepsi Swift ile yazıl�
 |---|---|
 | [**Alt-Tab**](alt-tab/README.md) | ⌥Tab ile canlı pencere önizlemeli pencere değiştirici (menü çubuğu uygulaması) |
 | [**Mac-Clear**](mac-clear/README.md) | Disk temizleyici ve alan analizcisi |
+| **Tabula** | Finder'da sağ tık → Yeni Dosya (txt, md, json, csv, html, py, sh); türler `tabula/Extension/FinderSync.swift` içindeki listede |
 
 ## Gereksinimler
 

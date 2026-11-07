@@ -33,7 +33,8 @@ for d in "$@"; do
   rm -rf "$app"; mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
   cp "$d/.build/release/$exe" "$app/Contents/MacOS/"
   cp "$d/Info.plist" "$app/Contents/"
-  cp "$d/Resources/AppIcon.icns" "$app/Contents/Resources/"
+  cp "$d/Resources/AppIcon.icns" "$app/Contents/Resources/" 2>/dev/null || true
+  [ -x "$d/post-build.sh" ] && "$d/post-build.sh" "$app"  # eklentili uygulamalar (tabula)
   # --options runtime: DYLD_INSERT_LIBRARIES ile koda enjeksiyon yapılıp uygulamanın izinleri ödünç alınamaz.
   codesign --force --options runtime --sign "$CERT" "$app"
   echo "Hazır: $app"
