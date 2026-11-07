@@ -7,6 +7,6 @@ CERT="mac-apps Dev"
 x="$app/Contents/PlugIns/NewFileFinder.appex"
 mkdir -p "$x/Contents/MacOS"
 swiftc -O -parse-as-library -application-extension -module-name NewFileFinder -framework FinderSync \
-  -Xlinker -e -Xlinker _NSExtensionMain -o "$x/Contents/MacOS/NewFileFinder" Extension/FinderSync.swift
+  -Xlinker -e -Xlinker _NSExtensionMain -o "$x/Contents/MacOS/NewFileFinder" Extension/*.swift Shared/*.swift
 cp Extension/Info.plist "$x/Contents/"
 codesign --force --options runtime --entitlements Extension/ext.entitlements --sign "$CERT" "$x"

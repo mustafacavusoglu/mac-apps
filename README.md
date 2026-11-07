@@ -6,7 +6,7 @@ Küçük, bağımlılıksız, yerel macOS uygulamaları. Hepsi Swift ile yazıl�
 |---|---|
 | [**Alt-Tab**](alt-tab/README.md) | ⌥Tab ile canlı pencere önizlemeli pencere değiştirici (menü çubuğu uygulaması) |
 | [**Mac-Clear**](mac-clear/README.md) | Disk temizleyici ve alan analizcisi |
-| [**Tabula**](tabula/README.md) | Finder'da sağ tık → Yeni Dosya (txt, md, json, csv, html, py, sh) |
+| [**Tabula**](tabula/README.md) | Finder sağ tık menüsü ve ⌘X/⌘V: Yeni Dosya, Kes/Taşı, Burada Terminal Aç |
 
 ## Gereksinimler
 
@@ -57,7 +57,7 @@ Disk temizleyici ve alan analizcisi. Sistem çöpü, büyük dosyalar, kopyalar,
 
 <img src="tabula/docs/icon.png" width="64" align="left">
 
-Finder'da klasörün boş yerine sağ tıklayınca **Yeni Dosya** menüsü açar (txt, md, json, csv, html, py, sh). Finder eklentisi olarak çalışır. → [Ayrıntılar](tabula/README.md)
+Windows'tan gelenler için Finder sağ tık menüsü: **Yeni Dosya** (txt, md, json, csv, html, py, sh), **Kes / Buraya Taşı** (⌘X / ⌘V dahil) ve **Burada Terminal Aç**. Finder eklentisi olarak çalışır. → [Ayrıntılar](tabula/README.md)
 
 <br clear="left">
 
@@ -79,8 +79,9 @@ mac-apps/
 │   └── docs/             ekran görüntüsü
 └── tabula/
     ├── README.md  Info.plist  Package.swift  post-build.sh
-    ├── Sources/Tabula/   ana uygulama (eklentiyi etkinleştirir)
-    ├── Extension/        Finder Sync eklentisi
+    ├── Sources/Tabula/   ana uygulama: main · Shortcuts (⌘X/⌘V)
+    ├── Shared/           uygulama + eklenti ortak kodu
+    ├── Extension/        FinderSync (menü) · Actions · Files · Types
     ├── Resources/        AppIcon.icns
     ├── tools/            make_icon.swift
     └── docs/             ikon

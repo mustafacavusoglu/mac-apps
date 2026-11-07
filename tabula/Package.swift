@@ -5,5 +5,5 @@ let package = Package(
     name: "Tabula",
     platforms: [.macOS(.v14)],
     products: [.executable(name: "tabula", targets: ["Tabula"])],
-    targets: [.executableTarget(name: "Tabula", path: "Sources/Tabula")]
+    targets: [.executableTarget(name: "Tabula", path: ".", sources: ["Sources/Tabula", "Shared"])]
 )

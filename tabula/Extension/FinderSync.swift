@@ -1,52 +1,42 @@
 import Cocoa
 import FinderSync
 
-// Finder'da klasörün boş yerine sağ tık → "Yeni Dosya" alt menüsü.
-// Yeni tür eklemek için aşağıdaki listeye bir satır yeter.
-private let types: [(title: String, ext: String, content: String)] = [
-    ("Metin Belgesi (.txt)", "txt", ""),
-    ("Markdown (.md)", "md", ""),
-    ("JSON (.json)", "json", "{}\n"),
-    ("CSV (.csv)", "csv", ""),
-    ("HTML (.html)", "html", "<!doctype html>\n<title></title>\n"),
-    ("Python (.py)", "py", ""),
-    ("Kabuk Betiği (.sh)", "sh", "#!/bin/sh\n"),
-]
-
+// Finder sağ tık menüsünü kurar; işi Actions.swift yapar.
+//   klasörün boş yeri → Yeni Dosya ▸ …, Burada Terminal Aç, Kesilenleri Buraya Taşı
+//   seçili öğeler     → Kes (Windows'taki Ctrl+X; sonra boş yerde "Buraya Taşı")
 class FinderSync: FIFinderSync {
+    private var controller: FIFinderSyncController { .default() }
+
     override init() {
         super.init()
-        FIFinderSyncController.default().directoryURLs = [URL(fileURLWithPath: "/")]
+        controller.directoryURLs = [URL(fileURLWithPath: "/")]
     }
 
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {
-        guard menuKind == .contextualMenuForContainer else { return nil }
-        let sub = NSMenu()
-        for (i, t) in types.enumerated() {
-            let item = NSMenuItem(title: t.title, action: #selector(create(_:)), keyEquivalent: "")
-            item.tag = i; item.target = self
-            sub.addItem(item)
-        }
         let menu = NSMenu()
-        let top = NSMenuItem(title: "Yeni Dosya", action: nil, keyEquivalent: "")
-        top.submenu = sub
-        menu.addItem(top)
+        func add(_ title: String, _ sel: Selector, to m: NSMenu, tag: Int = 0) {
+            let i = NSMenuItem(title: title, action: sel, keyEquivalent: ""); i.target = self; i.tag = tag; m.addItem(i)
+        }
+        switch menuKind {
+        case .contextualMenuForItems:
+            add("Kes", #selector(cutSelected), to: menu)
+        case .contextualMenuForContainer:
+            let sub = NSMenu()
+            for (i, t) in types.enumerated() { add(t.title, #selector(newFile(_:)), to: sub, tag: i) }
+            let top = NSMenuItem(title: "Yeni Dosya", action: nil, keyEquivalent: ""); top.submenu = sub
+            menu.addItem(top)
+            add("Burada Terminal Aç", #selector(terminal), to: menu)
+            if !cutPaths.isEmpty { add("Kesilen \(cutPaths.count) Öğeyi Buraya Taşı", #selector(moveHere), to: menu) }
+        default:
+            return nil
+        }
         return menu
     }
 
-    @objc func create(_ sender: NSMenuItem) {
-        guard let dir = FIFinderSyncController.default().targetedURL() else { return }
-        let t = types[sender.tag]
-        var url = dir.appendingPathComponent("Yeni Dosya.\(t.ext)")
-        var n = 2
-        while FileManager.default.fileExists(atPath: url.path) {
-            url = dir.appendingPathComponent("Yeni Dosya \(n).\(t.ext)"); n += 1
-        }
-        do {
-            try t.content.write(to: url, atomically: true, encoding: .utf8)
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-        } catch {
-            NSLog("NewFile: \(error)")
-        }
+    @objc func newFile(_ sender: NSMenuItem) {
+        if let dir = controller.targetedURL() { createFile(in: dir, type: types[sender.tag]) }
     }
+    @objc func cutSelected() { cutPaths = (controller.selectedItemURLs() ?? []).map(\.path) }
+    @objc func moveHere() { if let dir = controller.targetedURL() { moveCut(to: dir) } }
+    @objc func terminal() { if let dir = controller.targetedURL() { openTerminal(at: dir) } }
 }

@@ -36,7 +36,8 @@ for d in "$@"; do
   cp "$d/Resources/AppIcon.icns" "$app/Contents/Resources/" 2>/dev/null || true
   [ -x "$d/post-build.sh" ] && "$d/post-build.sh" "$app"  # eklentili uygulamalar (tabula)
   # --options runtime: DYLD_INSERT_LIBRARIES ile koda enjeksiyon yapılıp uygulamanın izinleri ödünç alınamaz.
-  codesign --force --options runtime --sign "$CERT" "$app"
+  ent=; [ -f "$d/app.entitlements" ] && ent="--entitlements $d/app.entitlements"  # isteğe bağlı yetkiler (tabula)
+  codesign --force --options runtime $ent --sign "$CERT" "$app"
   echo "Hazır: $app"
 
   if [ -n "$INSTALL" ]; then
