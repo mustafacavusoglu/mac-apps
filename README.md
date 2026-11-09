@@ -7,6 +7,7 @@ Küçük, bağımlılıksız, yerel macOS uygulamaları. Hepsi Swift ile yazıl�
 | [**Alt-Tab**](alt-tab/README.md) | ⌥Tab ile canlı pencere önizlemeli pencere değiştirici (menü çubuğu uygulaması) |
 | [**Mac-Clear**](mac-clear/README.md) | Disk temizleyici ve alan analizcisi |
 | [**Tabula**](tabula/README.md) | Finder sağ tık menüsü ve ⌘X/⌘V: Yeni Dosya, Kes/Taşı, Burada Terminal Aç |
+| [**Copy-Hist**](copy-hist/README.md) | Menü çubuğunda sade pano geçmişi: son 10 kayıt görünür, en fazla 50 kayıt kaydırılır |
 
 ## Gereksinimler
 
@@ -61,6 +62,12 @@ Windows'tan gelenler için Finder sağ tık menüsü: **Yeni Dosya** (txt, md, j
 
 <br clear="left">
 
+### [Copy-Hist](copy-hist/README.md)
+
+Menü çubuğunda sade pano geçmişi. Kopyaladığın metinleri saklar, tek tıkla panoya geri koyar. Kaydırmadan 10 kayıt görünür, toplam en fazla 50 kayıt tutulur. → [Ayrıntılar](copy-hist/README.md)
+
+![Copy-Hist paneli](copy-hist/docs/screenshot.png)
+
 ## Depo yapısı
 
 ```
@@ -76,6 +83,11 @@ mac-apps/
 │   ├── README.md  Info.plist  Package.swift
 │   ├── Sources/MacClear/
 │   ├── Resources/
+│   └── docs/             ekran görüntüsü
+├── copy-hist/
+│   ├── README.md  Info.plist  Package.swift
+│   ├── Sources/CopyHist/ App · Config · Clip · Store · Watcher · MenuView
+│   ├── tools/            snapshot.swift
 │   └── docs/             ekran görüntüsü
 └── tabula/
     ├── README.md  Info.plist  Package.swift  post-build.sh
