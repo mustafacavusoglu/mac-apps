@@ -1,5 +1,7 @@
 # Copy-Hist
 
+<img src="docs/icon.png" width="96" align="right">
+
 Menü çubuğunda yaşayan, sade pano geçmişi. Kopyaladığın metinleri saklar, birine tıklayınca panoya geri koyar.
 
 ![Copy-Hist](docs/screenshot.png)
@@ -43,7 +45,9 @@ copy-hist/
 │   ├── Watcher.swift    pano yoklama, panoya geri yazma
 │   └── MenuView.swift   panel ve satır arayüzü
 ├── tools/snapshot.swift ekran görüntüsünü örnek verilerle üretir
-└── docs/screenshot.png
+├── tools/make_icon.swift ikon: swift tools/make_icon.swift
+├── Resources/AppIcon.icns
+└── docs/            icon.png · screenshot.png
 ```
 
 Ekran görüntüsü, arayüz örnek verilerle çizilerek üretilir (gerçek geçmiş kullanılmaz):

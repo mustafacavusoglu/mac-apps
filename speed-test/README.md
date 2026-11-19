@@ -1,5 +1,7 @@
 # Speed-Test
 
+<img src="docs/icon.png" width="96" align="right">
+
 Menü çubuğunda sade hız testi. Simgeye tıkla, **Başla**'ya bas: ping, indirme ve yükleme hızı canlı ibreyle ölçülür.
 
 ![Speed-Test](docs/screenshot.png)
@@ -27,7 +29,8 @@ Gereksinimler ve imza sertifikası için [ana README](../README.md)'ye bakın.
 ```
 speed-test/
 ├── Sources/SpeedTestKit/  SpeedTestModel (ölçüm) · SpeedTestView (ibre, sonuçlar)
-└── Sources/SpeedTest/     App (menü çubuğu)
+├── Sources/SpeedTest/     App (menü çubuğu)
+└── tools/make_icon.swift ikon: swift tools/make_icon.swift
 ```
 
 Aynı `SpeedTestKit` kütüphanesini [macOne](../macone/README.md) de kullanır.
