@@ -7,7 +7,7 @@ Depodaki uygulamaların tek uygulamada birleşimi. Pano Geçmişi ve Hız Testi'
 | Özellik | Kaynak | Menü çubuğu simgesi |
 |---|---|---|
 | Pano Geçmişi | [Copy-Hist](../copy-hist/README.md) | panel: geçmiş listesi |
-| Kes / Taşı ve Finder menüsü | [Tabula](../tabula/README.md) | simge yok; Finder'da ⌘X / ⌘V, sağ tık |
+| Kes / Taşı ve Finder menüsü | [Finder-Plus](../finder-plus/README.md) | simge yok; Finder'da ⌘X / ⌘V, sağ tık |
 | Alt-Tab | [Alt-Tab](../alt-tab/README.md) | simge yok; ⌥Tab |
 | Mac-Clear | [Mac-Clear](../mac-clear/README.md) | simge yok; macOne simgesi → Mac-Clear'ı aç |
 | Hız Testi | [Speed-Test](../speed-test/README.md) | panel: canlı ibreli hız testi (Cloudflare, 4 paralel bağlantı) |
@@ -34,14 +34,14 @@ Deponun kökünden:
 - İkon: `swift tools/make_icon.swift` (macone klasöründen) `Resources/AppIcon.icns` ve `docs/icon.png` üretir.
 - Stats'ın hangi modülleri (CPU, RAM, disk, ağ, sensörler, pil…) gösterdiği Stats'ın kendi ayarlarından seçilir. Kurulu /Applications/Stats.app varsa macOne onu açar, yoksa kendi içindeki kopyayı. Stats zaten çalışıyorsa ikinci kopya açılmaz; macOne'dan kapatılınca o da kapanır. İçteki kopya kendinden imzalı olduğu için `stats.entitlements` ile kütüphane doğrulaması yalnız Stats sürecinde kapalı.
 - Bir simgeyi ⌘ basılıyken menü çubuğundan dışarı sürüklersen o özellik kapanır.
-- Finder eklentisi Tabula ile aynı kimliği kullanır. Tabula ile macOne'ı aynı anda kurma; sağ tık menüsü ikisinden birine bağlanır.
+- Finder eklentisi Finder-Plus ile aynı kimliği kullanır. Finder-Plus ile macOne'ı aynı anda kurma; sağ tık menüsü ikisinden birine bağlanır.
 - Tasarım kontrolü: `macone/.build/release/macOne --snapshot <klasör>` menü, ayarlar ve hız testi ekranlarını PNG'ye yazar.
 
 ## Yapı
 
 ```
 macone/
-├── Package.swift        ../alt-tab, ../copy-hist, ../tabula, ../mac-clear, ../speed-test kütüphanelerine bağlı
+├── Package.swift        ../alt-tab, ../copy-hist, ../finder-plus, ../mac-clear, ../speed-test kütüphanelerine bağlı
 ├── post-build.sh        Finder eklentisi + Stats.app'i pakete koyar ve imzalar
 ├── tools/build-stats.sh Stats'ı Release derler
 ├── vendor/stats/        exelban/stats (git alt modülü)

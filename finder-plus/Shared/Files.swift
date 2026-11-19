@@ -15,7 +15,7 @@ func uniqueURL(_ dir: URL, name: String) -> URL {
 // Kesilenler dosyada durur: eklenti sandbox'ta, ana uygulama dışında; ikisi de gerçek ev klasörünü görür.
 private let cutFile: URL = {
     let home = String(cString: getpwuid(getuid()).pointee.pw_dir)
-    return URL(fileURLWithPath: home + "/Library/Application Support/Tabula/cut.txt")
+    return URL(fileURLWithPath: home + "/Library/Application Support/Finder-Plus/cut.txt")
 }()
 
 var cutPaths: [String] {
@@ -38,7 +38,7 @@ func moveCut(to dir: URL) {
         else { continue }
         let dst = uniqueURL(dir, name: src.lastPathComponent)
         do { try FileManager.default.moveItem(at: src, to: dst); moved.append(dst) }
-        catch { NSLog("Tabula taşıma: \(error)") }
+        catch { NSLog("Finder-Plus taşıma: \(error)") }
     }
     cutPaths = []
     if !moved.isEmpty { NSWorkspace.shared.activateFileViewerSelecting(moved) }

@@ -1,6 +1,6 @@
 import Cocoa
 import ServiceManagement
-import TabulaKit
+import FinderPlusKit
 
 // Ana uygulama: Finder eklentisini kaydeder (sürüm başına bir kez), sonra arka planda ⌘X/⌘V kısayollarını dinler.
 let id = "dev.cavusoglu.tabula.finder"
@@ -21,8 +21,8 @@ if UserDefaults.standard.string(forKey: "setupVersion") != version {
     UserDefaults.standard.set(version, forKey: "setupVersion")
     NSApp.activate(ignoringOtherApps: true)
     let a = NSAlert()
-    a.messageText = "Tabula etkin"
-    a.informativeText = "Finder'da sağ tık → Yeni Dosya, Kes, Burada Terminal Aç.\nKısayollar ⌘X (kes) ve ⌘V (buraya taşı) için Sistem Ayarları → Gizlilik ve Güvenlik → Erişilebilirlik'te Tabula'yı aç. Finder'ı denetleme (Otomasyon) sorusuna da izin ver.\nSağ tık menüsü görünmezse: Genel → Oturum Açma Öğeleri ve Eklentiler → Finder → Yeni Dosya."
+    a.messageText = "Finder-Plus etkin"
+    a.informativeText = "Finder'da sağ tık → Yeni Dosya, Kes, Burada Terminal Aç.\nKısayollar ⌘X (kes) ve ⌘V (buraya taşı) için Sistem Ayarları → Gizlilik ve Güvenlik → Erişilebilirlik'te Finder-Plus'ı aç. Finder'ı denetleme (Otomasyon) sorusuna da izin ver.\nSağ tık menüsü görünmezse: Genel → Oturum Açma Öğeleri ve Eklentiler → Finder → Yeni Dosya."
     a.runModal()
 }
 

@@ -2,16 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <!-- Kimlik eski adıyla kalır: değişirse macOS verilen izinleri (Erişilebilirlik, Otomasyon) unutur. -->
   <key>CFBundleIdentifier</key><string>dev.cavusoglu.tabula</string>
-  <key>CFBundleName</key><string>Tabula</string>
-  <key>CFBundleDisplayName</key><string>Tabula</string>
-  <key>CFBundleExecutable</key><string>tabula</string>
+  <key>CFBundleName</key><string>Finder-Plus</string>
+  <key>CFBundleDisplayName</key><string>Finder-Plus</string>
+  <key>CFBundleExecutable</key><string>finder-plus</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>1.1</string>
   <key>CFBundleVersion</key><string>2</string>
   <key>LSMinimumSystemVersion</key><string>14.0</string>
-  <key>NSAppleEventsUsageDescription</key><string>Tabula, ⌘X ve ⌘V için Finder'daki seçimi ve açık klasörü öğrenmek ister.</string>
+  <key>NSAppleEventsUsageDescription</key><string>Finder-Plus, ⌘X ve ⌘V için Finder'daki seçimi ve açık klasörü öğrenmek ister.</string>
   <key>LSUIElement</key><true/>
 </dict>
 </plist>

@@ -8,7 +8,7 @@ func createFile(in dir: URL, type t: (title: String, ext: String, content: Strin
         try t.content.write(to: url, atomically: true, encoding: .utf8)
         NSWorkspace.shared.activateFileViewerSelecting([url])
     } catch {
-        NSLog("Tabula yeni dosya: \(error)")
+        NSLog("Finder-Plus yeni dosya: \(error)")
     }
 }
 

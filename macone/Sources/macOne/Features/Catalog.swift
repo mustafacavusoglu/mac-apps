@@ -1,6 +1,6 @@
 import AltTabKit
 import CopyHistKit
-import TabulaKit
+import FinderPlusKit
 import MacClearKit
 
 /// macOne'ın tüm özellikleri. Yeni özellik eklemek = buraya bir satır (+ App.swift'te menü çubuğu simgesi).
@@ -14,7 +14,7 @@ enum Catalog {
             Feature(id: clipboard, title: "Pano Geçmişi", detail: "Kopyaladığın metinleri tutar; menü çubuğundaki simgesinden seçersin (Copy-Hist).",
                     symbol: "doc.on.clipboard", start: clipboardHistoryStart, stop: clipboardHistoryStop),
             Feature(id: finder, title: "Kes / Taşı ve Finder menüsü",
-                    detail: "Finder'da ⌘X / ⌘V ile taşıma, sağ tık menüsünde Yeni Dosya ve Burada Terminal Aç (Tabula).",
+                    detail: "Finder'da ⌘X / ⌘V ile taşıma, sağ tık menüsünde Yeni Dosya ve Burada Terminal Aç (Finder-Plus).",
                     symbol: "scissors", start: { finderShortcutsStart(); FinderExtension.enable() },
                     stop: { finderShortcutsStop(); FinderExtension.disable() }),
             Feature(id: altTab, title: "Alt-Tab", detail: "⌥Tab ile canlı önizlemeli pencere değiştirici.",

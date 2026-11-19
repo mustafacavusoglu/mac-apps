@@ -1,9 +1,9 @@
 import Foundation
 
 /// Finder sağ tık menüsü eklentisi (Yeni Dosya, Kes/Taşı, Burada Terminal Aç). macOne paketinin içinde durur.
-/// Tabula'nın kurulum mantığıyla aynı: yalnız eklenti sürümü değişince Finder yeniden başlatılır.
+/// Finder-Plus'ın kurulum mantığıyla aynı: yalnız eklenti sürümü değişince Finder yeniden başlatılır.
 enum FinderExtension {
-    private static let id = "dev.cavusoglu.tabula.finder"
+    private static let id = "dev.cavusoglu.tabula.finder"  // eski adıyla kalır, bkz. finder-plus/Extension/Info.plist
     private static let versionKey = "finderRegisteredVersion"
     private static var appex: String { Bundle.main.bundlePath + "/Contents/PlugIns/NewFileFinder.appex" }
     private static var version: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0" }

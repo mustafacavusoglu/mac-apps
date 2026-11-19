@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <!-- Kimlik eski adıyla kalır: macOne ve Finder-Plus eklentiyi bu kimlikle kaydeder. -->
   <key>CFBundleIdentifier</key><string>dev.cavusoglu.tabula.finder</string>
   <key>CFBundleName</key><string>NewFileFinder</string>
   <key>CFBundleDisplayName</key><string>Yeni Dosya</string>

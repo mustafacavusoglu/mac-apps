@@ -34,9 +34,9 @@ for d in "$@"; do
   cp "$d/.build/release/$exe" "$app/Contents/MacOS/"
   cp "$d/Info.plist" "$app/Contents/"
   cp "$d/Resources/AppIcon.icns" "$app/Contents/Resources/" 2>/dev/null || true
-  [ -x "$d/post-build.sh" ] && "$d/post-build.sh" "$app"  # eklentili uygulamalar (tabula)
+  [ -x "$d/post-build.sh" ] && "$d/post-build.sh" "$app"  # eklentili uygulamalar (finder-plus, macone)
   # --options runtime: DYLD_INSERT_LIBRARIES ile koda enjeksiyon yapılıp uygulamanın izinleri ödünç alınamaz.
-  ent=; [ -f "$d/app.entitlements" ] && ent="--entitlements $d/app.entitlements"  # isteğe bağlı yetkiler (tabula)
+  ent=; [ -f "$d/app.entitlements" ] && ent="--entitlements $d/app.entitlements"  # isteğe bağlı yetkiler (finder-plus, macone)
   codesign --force --options runtime $ent --sign "$CERT" "$app"
   echo "Hazır: $app"
 

@@ -22,7 +22,7 @@ Menü çubuğunda tek uygulama. Pano geçmişi, Finder'da kes/taşı, Alt-Tab, M
 | <img src="macone/docs/icon.png" width="32"> | [**macOne**](macone/README.md) | Hepsi bir arada, özellik başına aç/kapat |
 | <img src="alt-tab/docs/icon.png" width="32"> | [**Alt-Tab**](alt-tab/README.md) | ⌥Tab ile canlı önizlemeli pencere değiştirici |
 | <img src="mac-clear/Resources/AppIcon-1024.png" width="32"> | [**Mac-Clear**](mac-clear/README.md) | Disk temizleyici ve alan analizcisi |
-| <img src="tabula/docs/icon.png" width="32"> | [**Tabula**](tabula/README.md) | Finder'da sağ tık Yeni Dosya, ⌘X / ⌘V ile taşıma, Burada Terminal Aç |
+| <img src="finder-plus/docs/icon.png" width="32"> | [**Finder-Plus**](finder-plus/README.md) | Finder'da sağ tık Yeni Dosya, ⌘X / ⌘V ile taşıma, Burada Terminal Aç |
 | <img src="copy-hist/docs/icon.png" width="32"> | [**Copy-Hist**](copy-hist/README.md) | Menü çubuğunda sade pano geçmişi |
 | <img src="speed-test/docs/icon.png" width="32"> | [**Speed-Test**](speed-test/README.md) | Menü çubuğunda canlı ibreli hız testi (Cloudflare) |
 
@@ -61,7 +61,7 @@ mac-apps/
 ├── macone/         hepsi bir arada (+ vendor/stats alt modülü)
 ├── alt-tab/        AltTabKit + uygulama
 ├── mac-clear/      MacClearKit + uygulama
-├── tabula/         TabulaKit + uygulama + Finder eklentisi
+├── finder-plus/    FinderPlusKit + uygulama + Finder eklentisi
 ├── copy-hist/      CopyHistKit + uygulama
 └── speed-test/     SpeedTestKit + uygulama
 ```
