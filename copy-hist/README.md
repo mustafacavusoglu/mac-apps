@@ -34,7 +34,9 @@ Gereksinimler ve imza sertifikası için [ana README](../README.md)'ye bakın.
 copy-hist/
 ├── Info.plist  Package.swift
 ├── Sources/CopyHist/
-│   ├── App.swift        giriş, menü çubuğu öğesi
+│   └── App.swift        giriş, menü çubuğu öğesi
+├── Sources/CopyHistKit/ (kitaplık; macOne da kullanır)
+│   ├── Public.swift     clipboardHistoryStart/Stop, ClipboardHistoryMenu
 │   ├── Config.swift     tüm sabitler (10 / 50, yoklama süresi, dosya yolu)
 │   ├── Clip.swift       kayıt modeli
 │   ├── Store.swift      liste, tekrar kontrolü, sınır, diske yazma
@@ -48,7 +50,7 @@ Ekran görüntüsü, arayüz örnek verilerle çizilerek üretilir (gerçek geç
 
 ```bash
 cd copy-hist
-swiftc -parse-as-library -o /tmp/snap tools/snapshot.swift $(ls Sources/CopyHist/*.swift | grep -v App.swift)
+swiftc -parse-as-library -o /tmp/snap tools/snapshot.swift $(ls Sources/CopyHistKit/*.swift)
 /tmp/snap docs/screenshot.png
 ```
 

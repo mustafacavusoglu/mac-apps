@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-// MARK: - Mac-Clear: uygulama girişi, kenar çubuğu ve komut satırı bayrakları
+// MARK: - Mac-Clear: kenar çubuğu ve ana görünüm
 
 let appID = "dev.cavusoglu.mac-clear" // Info.plist ile aynı; önbellek klasörü ve Sistem Çöpü'nden hariç tutma için
 
@@ -65,24 +65,5 @@ struct RootView: View {
             Button { dark.toggle() } label: { Image(systemName: dark ? "sun.max" : "moon") }.help("Açık / koyu tema")
         }
         .preferredColorScheme(dark ? .dark : .light)
-    }
-}
-
-/// Komut satırı: `mac-clear --selftest` (testler), `mac-clear --du <klasör>` (hızlı tarama ölçümü).
-@main struct MacClearApp: App {
-    init() {
-        if CommandLine.arguments.contains("--selftest") {
-            selfTest(); leftoversSelfTest(); cleanTreeSelfTest(); duplicatesSelfTest(); indexSelfTest()
-            Task { await performSelfTest(); exit(0) }
-            RunLoop.main.run() // ana aktör görevleri için
-        }
-        if let i = CommandLine.arguments.firstIndex(of: "--du"), i + 1 < CommandLine.arguments.count { duCommand(CommandLine.arguments[i + 1]); exit(0) }
-        setvbuf(stdout, nil, _IOLBF, 0) // terminalden çalıştırınca süre çıktıları anında görünsün
-        NSApplication.shared.setActivationPolicy(.regular)
-        DiskIndex.shared.start() // kayıtlı dizini yükle / arka planda tara, değişiklikleri izle
-    }
-    var body: some Scene {
-        WindowGroup("Mac-Clear") { RootView().frame(minWidth: 860, minHeight: 560) }
-            .windowToolbarStyle(.unified)
     }
 }

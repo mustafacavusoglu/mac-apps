@@ -55,13 +55,31 @@ private func handle(_ proxy: CGEventTapProxy, _ type: CGEventType, _ event: CGEv
     return pass
 }
 
-// İzin verilene kadar 2 sn'de bir dener.
+private var source: CFRunLoopSource?
+private var retry: DispatchWorkItem?
+
+// İzin verilene kadar 2 sn'de bir dener. Birden çok çağrı zararsız.
 func startShortcuts() {
+    guard tap == nil else { return }
+    retry?.cancel(); retry = nil
     let opts = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
     guard AXIsProcessTrustedWithOptions(opts),
           let t = CGEvent.tapCreate(tap: .cgSessionEventTap, place: .headInsertEventTap, options: .defaultTap,
                                     eventsOfInterest: CGEventMask(1 << CGEventType.keyDown.rawValue), callback: handle, userInfo: nil)
-    else { DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: startShortcuts); return }
+    else {
+        let w = DispatchWorkItem(block: startShortcuts)
+        retry = w
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: w)
+        return
+    }
     tap = t
-    CFRunLoopAddSource(CFRunLoopGetMain(), CFMachPortCreateRunLoopSource(nil, t, 0), .commonModes)
+    source = CFMachPortCreateRunLoopSource(nil, t, 0)
+    CFRunLoopAddSource(CFRunLoopGetMain(), source, .commonModes)
+}
+
+func stopShortcuts() {
+    retry?.cancel(); retry = nil
+    if let tap { CGEvent.tapEnable(tap: tap, enable: false); CFMachPortInvalidate(tap) }
+    if let source { CFRunLoopRemoveSource(CFRunLoopGetMain(), source, .commonModes) }
+    tap = nil; source = nil
 }

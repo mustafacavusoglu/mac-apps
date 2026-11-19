@@ -5,6 +5,7 @@ import SwiftUI
 struct MenuView: View {
     @ObservedObject var store: Store
     let watcher: Watcher
+    var showsQuit = true
 
     var body: some View {
         VStack(spacing: 4) {
@@ -30,7 +31,7 @@ struct MenuView: View {
                 Spacer()
                 Button { store.clear() } label: { Image(systemName: "trash") }
                     .disabled(store.clips.isEmpty)
-                Button { NSApp.terminate(nil) } label: { Image(systemName: "power") }
+                if showsQuit { Button { NSApp.terminate(nil) } label: { Image(systemName: "power") } }
             }
             .buttonStyle(.plain).foregroundStyle(.secondary)
             .padding(.horizontal, 10).padding(.bottom, 2)

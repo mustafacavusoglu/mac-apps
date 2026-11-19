@@ -15,10 +15,14 @@ final class Watcher {
     init(store: Store) { self.store = store }
 
     func start() {
+        guard timer == nil else { return }
+        lastCount = NSPasteboard.general.changeCount   // kapalıyken kopyalananlar kaydedilmez
         timer = Timer.scheduledTimer(withTimeInterval: Config.pollInterval, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
         }
     }
+
+    func stop() { timer?.invalidate(); timer = nil }
 
     private func tick() {
         let pb = NSPasteboard.general

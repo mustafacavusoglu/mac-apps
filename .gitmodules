@@ -1,0 +1,3 @@
+[submodule "macone/vendor/stats"]
+	path = macone/vendor/stats
+	url = https://github.com/exelban/stats

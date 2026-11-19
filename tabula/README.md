@@ -50,7 +50,7 @@ Tabula'yı açın. Eklentiyi kaydeder ve Finder'ı yeniden başlatır (her sür�
 
 ## Nasıl çalışır
 
-- Ana uygulama (`Sources/Tabula/`): `main.swift` eklentiyi etkinleştirir, `Shortcuts.swift` ⌘X/⌘V'yi dinler.
+- Ana uygulama (`Sources/Tabula/`): `main.swift` eklentiyi etkinleştirir. `Sources/TabulaKit/` (kütüphane, macOne da kullanır): `Shortcuts.swift` ⌘X/⌘V'yi dinler, `Public.swift` genel API.
 - `Shared/` hem uygulamada hem eklentide derlenen ortak kod: kesilenler listesi (`~/Library/Application Support/Tabula/cut.txt`) ve taşıma.
 - Eklenti (`Extension/`) bir Finder Sync eklentisidir: `FinderSync.swift` menüyü kurar, `Actions.swift` işi yapar, `Files.swift` dosya yardımcılarını, `Types.swift` dosya türlerini tutar. Sandbox ister. Her klasöre yazabilmesi için `/` yolu için geçici yazma istisnası alır.
 - Ana uygulama hardened runtime ile imzalanır. Finder'a AppleScript gönderebilmesi için `app.entitlements` içindeki `automation.apple-events` yetkisi ve Info.plist'teki `NSAppleEventsUsageDescription` şart. İkisinden biri eksikse macOS izin sorusunu hiç göstermeden reddeder. `build.sh` bu dosyayı kendiliğinden kullanır.

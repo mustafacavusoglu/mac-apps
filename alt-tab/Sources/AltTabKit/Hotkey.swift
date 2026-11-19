@@ -4,6 +4,7 @@ import AppKit
 import Carbon.HIToolbox
 
 private var tap: CFMachPort?
+private var tapSource: CFRunLoopSource?
 private var target: Switcher!
 
 /// true → olay yutulur, öndeki uygulamaya gitmez.
@@ -42,7 +43,17 @@ func startHotkey(_ s: Switcher) -> Bool {
         return handle(type, event) ? nil : Unmanaged.passUnretained(event)
     }, userInfo: nil)
     guard let tap else { return false }
-    CFRunLoopAddSource(CFRunLoopGetMain(), CFMachPortCreateRunLoopSource(nil, tap, 0), .commonModes)
+    tapSource = CFMachPortCreateRunLoopSource(nil, tap, 0)
+    CFRunLoopAddSource(CFRunLoopGetMain(), tapSource, .commonModes)
     print("⌥Tab hazır")
     return true
+}
+
+/// Musluğu kapatıp kaldırır.
+func stopHotkey() {
+    guard let t = tap else { return }
+    CGEvent.tapEnable(tap: t, enable: false)
+    if let src = tapSource { CFRunLoopRemoveSource(CFRunLoopGetMain(), src, .commonModes) }
+    CFMachPortInvalidate(t)
+    tap = nil; tapSource = nil
 }

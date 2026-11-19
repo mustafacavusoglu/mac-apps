@@ -1,5 +1,5 @@
 // docs/screenshot.png üretir (örnek verilerle; gerçek geçmişe dokunmaz).
-//   swiftc -o /tmp/snap tools/snapshot.swift $(ls Sources/CopyHist/*.swift | grep -v App.swift) && /tmp/snap docs/screenshot.png
+//   swiftc -o /tmp/snap tools/snapshot.swift $(ls Sources/CopyHistKit/*.swift) && /tmp/snap docs/screenshot.png
 import SwiftUI
 
 @main

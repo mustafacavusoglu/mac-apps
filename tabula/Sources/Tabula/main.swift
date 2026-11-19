@@ -1,5 +1,6 @@
 import Cocoa
 import ServiceManagement
+import TabulaKit
 
 // Ana uygulama: Finder eklentisini kaydeder (sürüm başına bir kez), sonra arka planda ⌘X/⌘V kısayollarını dinler.
 let id = "dev.cavusoglu.tabula.finder"
@@ -26,5 +27,5 @@ if UserDefaults.standard.string(forKey: "setupVersion") != version {
 }
 
 try? SMAppService.mainApp.register()  // oturum açılınca kendiliğinden başlar
-startShortcuts()
+finderShortcutsStart()
 NSApp.run()
