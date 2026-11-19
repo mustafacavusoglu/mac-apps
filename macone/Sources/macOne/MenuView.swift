@@ -72,15 +72,14 @@ struct ToggleRow: View {
                 .foregroundStyle(on ? Color.accentColor : .secondary)
             Text(title).foregroundStyle(on ? .primary : .secondary)
             Spacer()
-            Toggle("", isOn: $on).toggleStyle(.switch).controlSize(.mini).labelsHidden()
+            Toggle("", isOn: $on).toggleStyle(PillToggle()).labelsHidden()
         }
         .padding(.horizontal, 10)
         .frame(height: 28)
         .background(RoundedRectangle(cornerRadius: 6).fill(hover ? Color.primary.opacity(0.08) : .clear))
         .contentShape(Rectangle())
-        .onTapGesture { on.toggle() }
+        .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { on.toggle() } }
         .onHover { hover = $0 }
-        .animation(.easeOut(duration: 0.15), value: on)
     }
 }
 
@@ -107,5 +106,24 @@ struct MenuRow: View {
         .contentShape(Rectangle())
         .onTapGesture(perform: action)
         .onHover { hover = $0 }
+    }
+}
+
+/// Sade anahtar: açıkken vurgu renginde. Yerel anahtar etkin olmayan pencerede gri çizildiği için
+/// panelde ve ekran görüntülerinde hep aynı görünsün diye kendimiz çiziyoruz.
+struct PillToggle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        Capsule()
+            .fill(configuration.isOn ? Color.accentColor : Color.primary.opacity(0.15))
+            .frame(width: 30, height: 18)
+            .overlay(
+                Circle().fill(.white).shadow(color: .black.opacity(0.2), radius: 1, y: 0.5)
+                    .padding(2)
+                    .offset(x: configuration.isOn ? 6 : -6)
+            )
+            .contentShape(Capsule())
+            .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { configuration.isOn.toggle() } }
+            .accessibilityAddTraits(.isButton)
+            .accessibilityValue(configuration.isOn ? "Açık" : "Kapalı")
     }
 }

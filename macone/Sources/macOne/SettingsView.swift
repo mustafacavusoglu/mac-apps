@@ -78,7 +78,7 @@ struct SettingsView: View {
             }
             Spacer(minLength: 12)
             Toggle("", isOn: Binding(get: { on }, set: set))
-                .toggleStyle(.switch).controlSize(.small).labelsHidden()
+                .toggleStyle(PillToggle()).labelsHidden()
         }
         .padding(.horizontal, 12).padding(.vertical, 10)
         .animation(.easeOut(duration: 0.15), value: on)

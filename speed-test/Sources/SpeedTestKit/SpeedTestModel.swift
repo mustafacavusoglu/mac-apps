@@ -4,8 +4,8 @@ import Foundation
 /// İndirme/yükleme 4 paralel bağlantıyla yapılır; her aşama en fazla 10 sn sürer.
 /// Hız ilk bayt geldikten sonra ölçülür (bağlantı kurma süresi sayılmaz), canlı değer akarken güncellenir.
 @MainActor
-final class SpeedTestModel: ObservableObject {
-    enum Phase: Equatable { case idle, ping, download, upload, done, failed(String) }
+public final class SpeedTestModel: ObservableObject {
+    public enum Phase: Equatable { case idle, ping, download, upload, done, failed(String) }
 
     @Published private(set) var phase: Phase = .idle
     @Published private(set) var live: Double = 0          // aşamaya göre ms ya da Mbps
@@ -22,7 +22,9 @@ final class SpeedTestModel: ObservableObject {
 
     var isRunning: Bool { [.ping, .download, .upload].contains(phase) }
 
-    func run() {
+    public init() {}
+
+    public func run() {
         guard !isRunning else { return }
         ping = nil; download = nil; upload = nil; live = 0
         task = Task {
@@ -47,11 +49,11 @@ final class SpeedTestModel: ObservableObject {
     }
 
     /// Yalnız `--snapshot` için: ekranı belirli bir anda göstermek.
-    func preview(_ phase: Phase, live: Double, ping: Double?, download: Double?, upload: Double?) {
+    public func preview(_ phase: Phase, live: Double, ping: Double?, download: Double?, upload: Double?) {
         self.phase = phase; self.live = live; self.ping = ping; self.download = download; self.upload = upload
     }
 
-    func cancel() { task?.cancel(); task = nil; phase = .idle; live = 0 }
+    public func cancel() { task?.cancel(); task = nil; phase = .idle; live = 0 }
 
     /// İlk istek bağlantıyı (TLS) kurar ve sayılmaz; sonraki 5 isteğin ortancası.
     private func measurePing(_ session: URLSession) async throws -> Double {

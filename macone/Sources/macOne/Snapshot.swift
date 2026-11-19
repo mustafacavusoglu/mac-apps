@@ -1,4 +1,5 @@
 import SwiftUI
+import SpeedTestKit
 import AppKit
 
 /// Tasarım kontrolü: `macOne --snapshot <klasör>` menü, ayarlar ve hız testi ekranlarını PNG'ye yazar, çıkar.
@@ -11,6 +12,7 @@ enum Snapshot {
         let dir = URL(fileURLWithPath: args[i + 1])
         let store = FeatureStore(features: Catalog.make())
         NSApplication.shared.setActivationPolicy(.accessory)
+        NSApp.appearance = NSAppearance(named: .aqua)  // açık tema: depodaki diğer ekran görüntüleriyle aynı
         render(MenuView(features: store), "menu", dir)
         render(SettingsView(features: store).frame(width: 520), "settings", dir)
         render(FeaturePanel(title: "Hız Testi", symbol: "speedometer", turnOff: {}) { SpeedTestView().frame(width: 400) }, "speedtest", dir)
@@ -24,13 +26,21 @@ enum Snapshot {
     private static func render(_ view: some View, _ name: String, _ dir: URL) {
         let host = NSHostingView(rootView: view.background(Color(nsColor: .windowBackgroundColor)))
         host.frame.size = host.fittingSize
-        let window = NSWindow(contentRect: host.frame, styleMask: [.borderless], backing: .buffered, defer: false)
+        let window = KeyWindow(contentRect: host.frame, styleMask: [.borderless], backing: .buffered, defer: false)
         window.contentView = host
-        window.orderFrontRegardless()
+        NSApp.activate(ignoringOtherApps: true)
+        window.makeKeyAndOrderFront(nil)  // etkin pencere: anahtarlar gri değil, gerçek renkte çizilir
         RunLoop.main.run(until: Date().addingTimeInterval(2))  // düzenin oturması için
-        guard let rep = host.bitmapImageRepForCachingDisplay(in: host.bounds) else { return }
-        host.cacheDisplay(in: host.bounds, to: rep)
-        try? rep.representation(using: .png, properties: [:])?.write(to: dir.appendingPathComponent("\(name).png"))
+        // Ekrandaki hâliyle yakala (cacheDisplay denetimleri hep etkin değilmiş gibi soluk çiziyor).
+        let p = Process()
+        p.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
+        p.arguments = ["-x", "-o", "-l\(window.windowNumber)", dir.appendingPathComponent("\(name).png").path]
+        try? p.run(); p.waitUntilExit()
         window.orderOut(nil)
     }
+}
+
+/// Kenarlıksız pencere normalde etkin (key) olamaz; görüntüde denetimler soluk çıkmasın diye.
+private final class KeyWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
 }

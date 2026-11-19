@@ -1,7 +1,7 @@
 // swift-tools-version:5.9
 import PackageDescription
 
-// macOne: dört uygulamanın (Alt-Tab, Copy-Hist, Tabula, Mac-Clear) ve Stats'ın tek uygulamada birleşimi.
+// macOne: Alt-Tab, Copy-Hist, Tabula, Mac-Clear, Speed-Test ve Stats'ın tek uygulamada birleşimi.
 // Her özellik kendi paketinin kütüphane ürününden gelir; standalone uygulamalar da aynı kodu kullanır.
 let package = Package(
     name: "macOne",
@@ -12,6 +12,7 @@ let package = Package(
         .package(path: "../copy-hist"),
         .package(path: "../tabula"),
         .package(path: "../mac-clear"),
+        .package(path: "../speed-test"),
     ],
     targets: [
         .executableTarget(
@@ -21,6 +22,7 @@ let package = Package(
                 .product(name: "CopyHistKit", package: "copy-hist"),
                 .product(name: "TabulaKit", package: "tabula"),
                 .product(name: "MacClearKit", package: "mac-clear"),
+                .product(name: "SpeedTestKit", package: "speed-test"),
             ],
             path: "Sources/macOne"
         ),

@@ -4,6 +4,8 @@
 
 Windows'tan gelenlerin Finder'da aradığı sağ tık seçeneklerini ekler: **Yeni Dosya**, **Kes / Buraya Taşı** ve **Burada Terminal Aç**. macOS'ta bunlar hazır gelmez. Tabula hepsini bir Finder eklentisiyle sağlar.
 
+![Tabula: Finder sağ tık menüsü](docs/screenshot.png)
+
 ## Sağ tık menüsü
 
 | Nerede | Seçenek | Ne yapar |

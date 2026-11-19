@@ -24,6 +24,7 @@ Menü çubuğunda tek uygulama. Pano geçmişi, Finder'da kes/taşı, Alt-Tab, M
 | <img src="mac-clear/Resources/AppIcon-1024.png" width="32"> | [**Mac-Clear**](mac-clear/README.md) | Disk temizleyici ve alan analizcisi |
 | <img src="tabula/docs/icon.png" width="32"> | [**Tabula**](tabula/README.md) | Finder'da sağ tık Yeni Dosya, ⌘X / ⌘V ile taşıma, Burada Terminal Aç |
 | | [**Copy-Hist**](copy-hist/README.md) | Menü çubuğunda sade pano geçmişi |
+| | [**Speed-Test**](speed-test/README.md) | Menü çubuğunda canlı ibreli hız testi (Cloudflare) |
 
 ## Kurulum
 
@@ -52,7 +53,7 @@ macOne'ı kurduysan aynı özelliklerin tek başına sürümlerini kapat. Yoksa 
 
 ## Yapı
 
-Her uygulama kendi klasöründe bir Swift paketidir. Özellik kodu `…Kit` kütüphanesinde durur. Tek başına uygulama da macOne da aynı kütüphaneyi kullanır, kod kopyalanmaz.
+Her uygulama kendi klasöründe bir Swift paketidir; her klasörün README'sinde ekran görüntüsü var. Özellik kodu `…Kit` kütüphanesinde durur. Tek başına uygulama da macOne da aynı kütüphaneyi kullanır, kod kopyalanmaz.
 
 ```
 mac-apps/
@@ -61,7 +62,8 @@ mac-apps/
 ├── alt-tab/        AltTabKit + uygulama
 ├── mac-clear/      MacClearKit + uygulama
 ├── tabula/         TabulaKit + uygulama + Finder eklentisi
-└── copy-hist/      CopyHistKit + uygulama
+├── copy-hist/      CopyHistKit + uygulama
+└── speed-test/     SpeedTestKit + uygulama
 ```
 
 Yeni uygulama eklemek için `Info.plist`, `Package.swift` ve `README.md` içeren bir klasör aç. `CFBundleExecutable`, SwiftPM ürün adıyla aynı olsun. `./build.sh` klasörü kendisi bulur.

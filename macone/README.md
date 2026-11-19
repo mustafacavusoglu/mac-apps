@@ -10,10 +10,10 @@ Depodaki uygulamaların tek uygulamada birleşimi. Pano Geçmişi ve Hız Testi'
 | Kes / Taşı ve Finder menüsü | [Tabula](../tabula/README.md) | simge yok; Finder'da ⌘X / ⌘V, sağ tık |
 | Alt-Tab | [Alt-Tab](../alt-tab/README.md) | simge yok; ⌥Tab |
 | Mac-Clear | [Mac-Clear](../mac-clear/README.md) | simge yok; macOne simgesi → Mac-Clear'ı aç |
-| Hız Testi | macOne | panel: canlı ibreli hız testi (Cloudflare, 4 paralel bağlantı) |
+| Hız Testi | [Speed-Test](../speed-test/README.md) | panel: canlı ibreli hız testi (Cloudflare, 4 paralel bağlantı) |
 | Stats | [exelban/stats](https://github.com/exelban/stats) (MIT) | Stats'ın kendi simgeleri; modülleri Stats'ın ayarlarından seç |
 
-Standalone uygulamalar olduğu gibi duruyor. Her birinin kodu kendi paketindeki `…Kit` kütüphanesinde, macOne da aynı kütüphaneleri kullanır. Böylece kod tek yerde kalır.
+Tek başına uygulamalar olduğu gibi duruyor. Her birinin kodu kendi paketindeki `…Kit` kütüphanesinde, macOne da aynı kütüphaneleri kullanır. Böylece kod tek yerde kalır.
 
 ## Kurulum
 
@@ -41,7 +41,7 @@ Deponun kökünden:
 
 ```
 macone/
-├── Package.swift        ../alt-tab, ../copy-hist, ../tabula, ../mac-clear kütüphanelerine bağlı
+├── Package.swift        ../alt-tab, ../copy-hist, ../tabula, ../mac-clear, ../speed-test kütüphanelerine bağlı
 ├── post-build.sh        Finder eklentisi + Stats.app'i pakete koyar ve imzalar
 ├── tools/build-stats.sh Stats'ı Release derler
 ├── vendor/stats/        exelban/stats (git alt modülü)
@@ -53,5 +53,5 @@ macone/
     ├── SettingsView.swift
     ├── Snapshot.swift   --snapshot
     ├── Permissions.swift Ekran Kaydı izni (Alt-Tab önizlemesi)
-    └── Features/        Catalog · FinderExtension · SpeedTestModel/View · StatsFeature
+    └── Features/        Catalog · FinderExtension · StatsFeature
 ```

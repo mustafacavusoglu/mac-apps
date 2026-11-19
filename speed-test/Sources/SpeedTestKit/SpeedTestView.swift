@@ -1,11 +1,11 @@
 import SwiftUI
 
 /// Hız testi ekranı: canlı ibre yayı, ortada büyük değer, altta üç sonuç.
-struct SpeedTestView: View {
+public struct SpeedTestView: View {
     @StateObject private var model: SpeedTestModel
-    init(model: SpeedTestModel? = nil) { _model = StateObject(wrappedValue: model ?? SpeedTestModel()) }
+    public init(model: SpeedTestModel? = nil) { _model = StateObject(wrappedValue: model ?? SpeedTestModel()) }
 
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 18) {
             ZStack {
                 Gauge(value: gaugeValue, colors: colors, active: model.isRunning)

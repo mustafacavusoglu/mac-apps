@@ -1,4 +1,5 @@
 import SwiftUI
+import SpeedTestKit
 import AppKit
 import CopyHistKit
 import MacClearKit
