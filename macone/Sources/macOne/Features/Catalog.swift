@@ -20,7 +20,7 @@ enum Catalog {
             Feature(id: altTab, title: "Alt-Tab", detail: "⌥Tab ile canlı önizlemeli pencere değiştirici.",
                     symbol: "rectangle.on.rectangle", start: { altTabStart(showStatusItem: false) }, stop: altTabStop),
             Feature(id: macClear, title: "Mac-Clear", detail: "Disk temizleyici ve alan analizcisi. macOne simgesinden açılır.",
-                    symbol: "internaldrive", start: macClearPrepare, stop: {}),
+                    symbol: "internaldrive", start: {}, stop: {}),
             Feature(id: speedTest, title: "Hız Testi", detail: "Ping, indirme ve yükleme hızı. Menü çubuğundaki simgesine tıklayınca açılır.",
                     symbol: "speedometer", start: {}, stop: {}),
             Feature(id: stats, title: "Stats", detail: "CPU, bellek, disk, ağ, sıcaklık, pil (exelban/stats). Menü çubuğundaki simgeleri Stats'ın kendisi gösterir; hangi modüllerin görüneceğini Stats'ın ayarlarından seç.",

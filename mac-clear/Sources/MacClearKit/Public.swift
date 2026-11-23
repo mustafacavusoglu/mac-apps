@@ -6,12 +6,12 @@ import SwiftUI
 /// Ana görünüm; boyutu (frame) ana uygulama belirler.
 public struct MacClearView: View {
     public init() {}
-    public var body: some View { RootView() }
-}
-
-/// Dizini yükler / arka planda tarar. Görünümden önce bir kez çağrılır (tekrar çağrılması zararsızdır).
-@MainActor public func macClearPrepare() {
-    DiskIndex.shared.start()
+    public var body: some View {
+        // Disk dizini yalnız pencere açıkken izlenir (pil).
+        RootView()
+            .onAppear { DiskIndex.shared.start() }
+            .onDisappear { DiskIndex.shared.stop() }
+    }
 }
 
 /// `--selftest` ve `--du <klasör>` bayraklarını işler; işlediyse süreçten çıkar (true döner, aslında dönmez).

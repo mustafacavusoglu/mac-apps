@@ -40,12 +40,12 @@ struct MacOneApp: App {
         .menuBarExtraStyle(.window)
 
         Window("Mac-Clear", id: "mac-clear") {
-            MacClearView().frame(minWidth: 860, minHeight: 560)
+            MacClearView().frame(minWidth: 860, minHeight: 560).showsInAppSwitcher()
         }
         .windowToolbarStyle(.unified)
 
         Window("macOne Ayarları", id: "settings") {
-            SettingsView(features: features).frame(width: 520)
+            SettingsView(features: features).frame(width: 520).showsInAppSwitcher()
         }
         .windowResizability(.contentSize)
     }

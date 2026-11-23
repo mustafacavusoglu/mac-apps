@@ -17,7 +17,7 @@ func listWindows() -> [Win] {
     return info.compactMap { d in
         guard (d[kCGWindowLayer as String] as? Int) == 0,
               let id = d[kCGWindowNumber as String] as? CGWindowID,
-              let pid = d[kCGWindowOwnerPID as String] as? pid_t, pid != getpid(),
+              let pid = d[kCGWindowOwnerPID as String] as? pid_t,
               let b = d[kCGWindowBounds as String] as? [String: CGFloat], let w = b["Width"], let h = b["Height"], w > 80, h > 80,
               let app = NSRunningApplication(processIdentifier: pid), app.activationPolicy == .regular
         else { return nil }
@@ -27,6 +27,11 @@ func listWindows() -> [Win] {
 }
 
 func focus(_ w: Win) {
+    if w.pid == getpid() {  // kendi penceremiz (macOne içinde): AX kendi sürecine senkron çağrıda takılır
+        NSApp.windows.first { CGWindowID($0.windowNumber) == w.id }?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        return
+    }
     let axApp = AXUIElementCreateApplication(w.pid)
     var ref: CFTypeRef?
     if AXUIElementCopyAttributeValue(axApp, kAXWindowsAttribute as CFString, &ref) == .success, let wins = ref as? [AXUIElement],

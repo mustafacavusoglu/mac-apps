@@ -141,7 +141,8 @@ func perform(_ urls: [URL], permanent: Set<URL> = [], sizes: [URL: Int64] = [:],
     errors += r.errs
     var moved = r.moved
     if !r.needAuth.isEmpty {
-        do { moved.merge(try await NSWorkspace.shared.recycle(r.needAuth)) { $1 } } catch { errors.append(error.localizedDescription) }
+        do { moved.merge(try await NSWorkspace.shared.recycle(r.needAuth)) { $1 } }
+        catch { if let e = finderTrash(r.needAuth) { errors.append(e) } }
     }
     poll.cancel()
 
@@ -166,6 +167,17 @@ func perform(_ urls: [URL], permanent: Set<URL> = [], sizes: [URL: Int64] = [:],
                detail: errors.prefix(2).joined(separator: "\n"), undo: undo)
     }
     return gone
+}
+
+/// Root'a ait ya da macOS'un Uygulama Yönetimi korumasındaki uygulamalar (ör. Zoom) bizim süreçten taşınamaz.
+/// Finder'a bırakılır: o gerekirse yönetici parolasını sorar, öğe Çöp Sepeti'ne gider.
+@MainActor func finderTrash(_ urls: [URL]) -> String? {
+    let esc = { (s: String) in s.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"") }
+    let list = urls.filter { fm.fileExists(atPath: $0.path) }.map { "POSIX file \"\(esc($0.path))\"" }
+    guard !list.isEmpty else { return nil }
+    var err: NSDictionary?
+    NSAppleScript(source: "tell application \"Finder\" to delete {\(list.joined(separator: ", "))}")?.executeAndReturnError(&err)
+    return err.map { "Finder: \($0[NSAppleScript.errorMessage] as? String ?? "taşınamadı")" }
 }
 
 @MainActor private func restore(_ moved: [URL: URL], then: (@MainActor ([URL]) async -> Void)?) async {

@@ -212,14 +212,18 @@ struct IndexState: Sendable {
     private var lastEvent: FSEventStreamEventId = 0
     private var stream: FSEventStreamRef?
     private var queue: Task<Void, Never>?
-    private var started = false
+    private var started = false  // FSEvents izleniyor mu (pencere açık)
+    private var loaded = false   // kayıt yüklendi / ilk tarama başladı
 
     func covers(_ path: String) -> Bool { root.map { $0 == "/" || path == $0 || path.hasPrefix($0 + "/") } ?? false }
 
-    /// Uygulama açılışında: kayıtlı dizini yükle (yoksa arka planda ev klasörünü tara) ve değişiklikleri izle.
+    /// Mac-Clear penceresi açılınca: kayıtlı dizini yükle (yoksa arka planda ev klasörünü tara) ve değişiklikleri izle.
+    /// Tekrar açılışta yalnız izleme yeniden başlar; kapalıyken olanlar FSEvents geçmişinden (lastEvent) oynatılır.
     func start() {
         guard !started else { return }
         started = true
+        if loaded { watch(); return }
+        loaded = true
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { _ in
             MainActor.assumeIsolated { DiskIndex.save(DiskIndex.shared.state, event: DiskIndex.shared.lastEvent) }
         }
@@ -232,6 +236,16 @@ struct IndexState: Sendable {
             }
             if root == nil { await scan(home.path) }
         }
+    }
+
+    /// Pencere kapanınca: izlemeyi bırak, kaydet. Ev klasörü sürekli değiştiği için açık kalan izleme
+    /// her birkaç saniyede yüz binlerce klasörlük dizini kopyalıyor, pili bitiriyordu.
+    func stop() {
+        guard started else { return }
+        started = false
+        unwatch()
+        let s = state, ev = lastEvent
+        Task.detached(priority: .background) { DiskIndex.save(s, event: ev) }
     }
 
     func ensure(_ path: String) async {
@@ -291,9 +305,13 @@ struct IndexState: Sendable {
 
     // MARK: FSEvents
 
-    private func watch() {
+    private func unwatch() {
         if let s = stream { FSEventStreamStop(s); FSEventStreamInvalidate(s); FSEventStreamRelease(s); stream = nil }
-        guard let root else { return }
+    }
+
+    private func watch() {
+        unwatch()
+        guard started, let root else { return }  // pencere kapalıyken biten tarama izlemeyi yeniden açmasın
         var ctx = FSEventStreamContext(version: 0, info: Unmanaged.passUnretained(self).toOpaque(), retain: nil, release: nil, copyDescription: nil)
         let cb: FSEventStreamCallback = { _, info, n, paths, flags, ids in
             let me = Unmanaged<DiskIndex>.fromOpaque(info!).takeUnretainedValue()
