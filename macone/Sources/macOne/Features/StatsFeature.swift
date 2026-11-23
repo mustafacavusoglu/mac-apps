@@ -19,7 +19,7 @@ enum StatsFeature {
         guard let url = [installed, embedded].first(where: { FileManager.default.fileExists(atPath: $0.path) }) else { return }
         let config = NSWorkspace.OpenConfiguration()
         config.activates = false
-        config.hides = true
+        // hides = true KULLANMA: gizli açılan Stats menü çubuğuna tıklanınca panelini (tüketim, en yoğun işlemler) hiç göstermiyor.
         NSWorkspace.shared.openApplication(at: url, configuration: config) { _, _ in }
     }
 
